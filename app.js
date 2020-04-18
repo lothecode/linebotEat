@@ -36,7 +36,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
         const index = randomPick(diners.length)
         const name = diners[index].name
         event.reply(`${name}`)
-      } else if (userSay) {
+      } else {
         event.reply('你梭什麼我聽不懂啦~')
       }
     })
