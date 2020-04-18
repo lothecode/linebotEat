@@ -33,7 +33,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
       let userSay = event.message.text.includes('吃')
       switch (event.message.text) {
         case `${userSay}`:
-          const index = randomPick(diners.length)
+          let index = randomPick(diners.length)
           const name = diners[index].name
           event.reply(`吃${name}好了啦!`)
           break
