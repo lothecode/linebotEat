@@ -31,11 +31,12 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
     .exec((err, diners) => {
       if (err) return console.error(err)
       let userSay = event.message.text
+
       if (userSay.includes('吃')) {
         const index = randomPick(diners.length)
         const name = diners[index].name
         event.reply(`${name}`)
-      } else {
+      } else if (!userSay.includes('吃')) {
         event.reply('你梭什麼我聽不懂啦~')
       }
     })
