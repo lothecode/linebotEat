@@ -41,6 +41,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
 })
 
 app.post('/', linebotParser)
+
 app.get('/', (req, res) => {
   Diner.find()
     .lean()
