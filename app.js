@@ -32,9 +32,9 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
       if (err) return console.error(err)
       const index = randomPick(diners.length)
       const name = diners[index].name
-      return name
+      event.reply(`${name}`)
     })
-  event.reply(name)
+
 })
 
 app.post('/', linebotParser)
