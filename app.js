@@ -45,8 +45,7 @@ app.get('/', (req, res) => {
     .exec((err, diners) => {
       if (err) return console.error(err)
       let index = randomPick(diners.length)
-      let name = diners[index].name
-      res.send(`<H1>${name}</h1>`)
+      res.send(`<H1>${diners[index].name}</h1>`)
     }
     )
 })
