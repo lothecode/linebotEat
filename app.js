@@ -36,7 +36,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
         const name = diners[index].name
         event.reply(`${name}`)
       } else {
-        event.reply(`你梭什麼我聽不懂啦~`)
+        event.reply('你梭什麼我聽不懂啦~')
       }
     })
 
