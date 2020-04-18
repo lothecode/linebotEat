@@ -32,7 +32,11 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
       if (err) return console.error(err)
       const index = randomPick(diners.length)
       const name = diners[index].name
-      event.reply(`${name}`)
+      event.reply(`你好`).then(function (data) {
+        console.log('ok')
+      }).catch(function (error) {
+        console.error(error)
+      })
     })
 
 })
