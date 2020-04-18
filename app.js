@@ -30,7 +30,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
     .lean()
     .exec((err, diners) => {
       if (err) return console.error(err)
-      let userSay = event.message.text.includes('吃')
+      let userSay = event.message.text
       // switch (event.message.text) {
       //   case `${userSay}`:
       //     let index = randomPick(diners.length)
