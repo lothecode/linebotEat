@@ -31,23 +31,23 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
     .exec((err, diners) => {
       if (err) return console.error(err)
       let userSay = event.message.text.includes('吃')
-      switch (event.message.text) {
-        case `${userSay}`:
-          let index = randomPick(diners.length)
-          const name = diners[index].name
-          event.reply(`吃${name}好了啦!`)
-          break
+      // switch (event.message.text) {
+      //   case `${userSay}`:
+      //     let index = randomPick(diners.length)
+      //     const name = diners[index].name
+      //     event.reply(`吃${name}好了啦!`)
+      //     break
 
-        default:
-          event.reply('你梭什麼我聽不懂啦~')
-      }
-      // if (userSay.includes('吃')) {
-      //   const index = randomPick(diners.length)
-      //   const name = diners[index].name
-      //   event.reply(`${name}`)
-      // } else {
-      //   event.reply('你梭什麼我聽不懂啦~')
+      //   default:
+      //     event.reply('你梭什麼我聽不懂啦~')
       // }
+      if (userSay.includes('吃')) {
+        const index = randomPick(diners.length)
+        const name = diners[index].name
+        event.reply(`${name}`)
+      } else {
+        event.reply('你梭什麼我聽不懂啦~')
+      }
     })
 
 })
