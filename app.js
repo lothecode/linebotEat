@@ -4,11 +4,14 @@ const linebot = require('linebot')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const Diner = require('./models/diner')
 app.engine('handlebars', exphbs({ defaultlayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static('public'))
+app.use(methodOverride('_method'))
 
 // 判別開發環境, 如果不是 production 模式, 使用 dotenv 讀取 .env 檔案
 if (process.env.NODE_ENV !== 'production') {
@@ -66,17 +69,27 @@ app.get('/', (req, res) => {
     })
 })
 
-// new get - ok
+// new get 
 app.get('/diners/new', (req, res) => {
   res.render('new')
 })
 
 // new action
 app.post('/diners', (req, res) => {
-  res.send('create action post')
+  const diner = new Diner({
+    name: req.body.name,
+    category: req.body.category,
+    phone: req.body.phone,
+    rating: req.body.rating,
+    description: req.body.description
+  })
+  diner.save(err => {
+    if (err) return console.error(err)
+    return res.redirect('/')
+  })
 })
 
-// edit get - ok
+// edit get 
 app.get('/diners/:id/edit', (req, res) => {
   Diner.findOne()
     .lean()
@@ -87,8 +100,19 @@ app.get('/diners/:id/edit', (req, res) => {
 })
 
 // edit action
-app.put('/:id', (req, res) => {
-  res.send('edit action')
+app.put('/diners/:id', (req, res) => {
+  Diner.findOne((err, diner) => {
+    if (err) return console.error(err)
+    diner.name = req.body.name,
+      diner.category = req.body.category,
+      diner.phone = req.body.phone,
+      diner.rating = req.body.rating,
+      diner.description = req.body.description,
+      diner.save((err => {
+        if (err) return console.error(err)
+        return res.redirect('/')
+      }))
+  })
 })
 
 // delete

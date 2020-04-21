@@ -1,5 +1,5 @@
 <div class="container my-4">
-  <form action="/places/create" method="POST">
+  <form action="/diners/{{{diner._id}}}?_method=PUT" method="POST">
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">餐廳名稱</label>
       <div class="col-md-6">
@@ -10,7 +10,7 @@
     <div class="form-group row">
       <label for="category" class="col-sm-2 col-form-label">類別</label>
       <div class="col-md-6">
-        <input type="text" class="form-control" name="category">
+        <input type="text" class="form-control" name="category" value="{{{diner.category}}}">
       </div>
     </div>
 
