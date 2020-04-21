@@ -1,0 +1,41 @@
+<div class="mb-2">
+  <a href="/diners/new" class="btn btn-outline-success">加入一個新的餐廳</a>
+</div>
+
+<table class="table mb-5">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">類別</th>
+      <th scope="col">名稱</th>
+      <th scope="col">電話</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody class="col-md-12 m-auto">
+    {{#each diners}}
+    <tr>
+      <td class="align-middle amount">
+        <h5>{{{this.category}}}</h5>
+      </td>
+      <td>
+        <div class="colum pt-1">
+          <h5>{{{this.name}}}</h5>
+        </div>
+      </td>
+      <td>
+        <div class="colum pt-1">
+          <p class="date my-1">{{{this.phone}}}</p>
+        </div>
+      </td>
+      <td class="d-flex justify-content-end pt-4">
+        <a href="/diners/{{{this._id}}}/edit" class="btn btn-success my-1 mr-1">修改</a>
+        <form action="/diners/{{{this._id}}}/delete?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-danger my-1">刪除</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+
+</table>

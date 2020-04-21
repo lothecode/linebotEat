@@ -2,7 +2,13 @@ const express = require('express')
 const app = express()
 const linebot = require('linebot')
 const mongoose = require('mongoose')
+const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
+
 const Diner = require('./models/diner')
+app.engine('handlebars', exphbs({ defaultlayout: 'main' }))
+app.set('view engine', 'handlebars')
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // 判別開發環境, 如果不是 production 模式, 使用 dotenv 讀取 .env 檔案
 if (process.env.NODE_ENV !== 'production') {
@@ -31,16 +37,6 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
     .exec((err, diners) => {
       if (err) return console.error(err)
       let userSay = event.message.text
-      // switch (event.message.text) {
-      //   case `${userSay}`:
-      //     let index = randomPick(diners.length)
-      //     const name = diners[index].name
-      //     event.reply(`吃${name}好了啦!`)
-      //     break
-
-      //   default:
-      //     event.reply('你梭什麼我聽不懂啦~')
-      // }
       console.log(event.message.text)
       let reply = '什麼?! 你梭什麼我聽不懂啦~'
       if (userSay == undefined) {
@@ -66,10 +62,33 @@ app.get('/', (req, res) => {
     .lean()
     .exec((err, diners) => {
       if (err) return console.error(err)
-      let index = randomPick(diners.length)
-      res.send(`<H1>${diners[index].name}</h1>`)
-    }
-    )
+      return res.render('index', { diners })
+    })
+})
+
+// new get
+app.get('/diners/new', (req, res) => {
+  res.render('new')
+})
+
+// new action
+app.post('/diners', (req, res) => {
+  res.send('create action post')
+})
+
+// edit get
+app.get('/diners/:id/edit', (req, res) => {
+  res.send('edit get')
+})
+
+// edit action
+app.put('/:id', (req, res) => {
+  res.send('edit action')
+})
+
+// delete
+app.delete('/diners/:id/delete', (req, res) => {
+  res.send('delete')
 })
 
 function randomPick(length) {
