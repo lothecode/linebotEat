@@ -46,7 +46,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
         reply = '不要再說了，我肚子好餓！'
       } else if (userSay.includes('吃')) {
         const index = randomPick(diners.length)
-        reply = diners[index].name
+        reply = `名字:${diners[index].name}, 類別:${diners[index].category}, 電話: ${diners[index].name}.phone, Rating: ${diners[index].name}.rating, 描述: ${diners[index].description}`
       }
 
       event.reply(reply).then(function (data) {
@@ -59,6 +59,20 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
 })
 
 app.post('/', linebotParser)
+
+
+// new get 
+app.get('/diners/line', (req, res) => {
+  Diner.find()
+    .lean()
+    .exec((err, diners) => {
+      if (err) return console.error(err)
+      const index = randomPick(diners.length)
+      let reply = diners[index]
+      return res.render('line', { diner: reply })
+    })
+
+})
 
 app.get('/', (req, res) => {
   Diner.find()
@@ -91,7 +105,7 @@ app.post('/diners', (req, res) => {
 
 // edit get 
 app.get('/diners/:id/edit', (req, res) => {
-  Diner.findOne()
+  Diner.findOne({ _id: req.params.id })
     .lean()
     .exec((err, diner) => {
       if (err) return console.error(err)
@@ -101,7 +115,7 @@ app.get('/diners/:id/edit', (req, res) => {
 
 // edit action
 app.put('/diners/:id', (req, res) => {
-  Diner.findOne((err, diner) => {
+  Diner.findOne({ _id: req.params.id }, (err, diner) => {
     if (err) return console.error(err)
     diner.name = req.body.name,
       diner.category = req.body.category,
@@ -117,7 +131,13 @@ app.put('/diners/:id', (req, res) => {
 
 // delete
 app.delete('/diners/:id/delete', (req, res) => {
-  res.send('delete')
+  Diner.findOne({ _id: req.params.id }, (err, diner) => {
+    if (err) return console.error(err)
+    diner.remove(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  })
 })
 
 function randomPick(length) {
