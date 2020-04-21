@@ -41,8 +41,9 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
       //   default:
       //     event.reply('你梭什麼我聽不懂啦~')
       // }
+      console.log(event.message.text)
       let reply = '什麼?! 你梭什麼我聽不懂啦~'
-      if (userSay.filter('吃')) {
+      if (userSay.includes('吃')) {
         const index = randomPick(diners.length)
         reply = diners[index].name
       } else {
