@@ -46,7 +46,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
         reply = '不要再說了，我肚子好餓！'
       } else if (userSay.includes('吃')) {
         const index = randomPick(diners.length)
-        reply = `名字:${diners[index].name}, 類別:${diners[index].category}, 電話: ${diners[index].name}.phone, Rating: ${diners[index].name}.rating, 描述: ${diners[index].description}`
+        reply = `名字: ${diners[index].name}, 類別: ${diners[index].category}, 電話: ${diners[index].phone}, Rating: ${diners[index].rating}, 描述: ${diners[index].description}`
       }
 
       event.reply(reply).then(function (data) {
