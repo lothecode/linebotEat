@@ -43,12 +43,13 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
       // }
       console.log(event.message.text)
       let reply = '什麼?! 你梭什麼我聽不懂啦~'
-      if (userSay.includes('吃')) {
+      if (userSay == 'undefined') {
+        reply = '你梭什麼我聽不懂啦~'
+      } else if (userSay.includes('吃')) {
         const index = randomPick(diners.length)
         reply = diners[index].name
-      } else {
-        event.reply('你梭什麼我聽不懂啦~')
       }
+
       event.reply(reply).then(function (data) {
         // success
       }).catch(function (error) {
