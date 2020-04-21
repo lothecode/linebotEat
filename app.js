@@ -66,7 +66,7 @@ app.get('/', (req, res) => {
     })
 })
 
-// new get
+// new get - ok
 app.get('/diners/new', (req, res) => {
   res.render('new')
 })
@@ -76,9 +76,14 @@ app.post('/diners', (req, res) => {
   res.send('create action post')
 })
 
-// edit get
+// edit get - ok
 app.get('/diners/:id/edit', (req, res) => {
-  res.send('edit get')
+  Diner.findOne()
+    .lean()
+    .exec((err, diner) => {
+      if (err) return console.error(err)
+      return res.render('edit', { diner })
+    })
 })
 
 // edit action

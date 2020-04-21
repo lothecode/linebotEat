@@ -14,8 +14,8 @@ db.once('open', () => {
       // id: item.id,
       name: item.name,
       category: item.category,
-      image: item.image,
       phone: item.phone,
+      rating: item.rating,
       description: item.description
     })
 
