@@ -33,6 +33,10 @@ const bot = linebot({
 })
 const linebotParser = bot.parser()
 
+const blah = ['你可以說一點有營養的嗎!!', '怎麼還沒有好???', '不要龜龜毛毛的趕快做決定!', '你不是要減肥嗎, 不要吃好了啦XD', '一天是要問幾次?!', '冰箱的剩菜回去吃一吃好了~', '快一點, 我快昏倒了T^T', '廢話不多說, 來去吃飯了!', '我覺得每一家都很好吃啊 :)', '什麼?! 你梭什麼我聽不懂?!', '不要再說了，我肚子好餓！', '你的對話要提到"吃"這個字才會回答喔!', '你的提問要有"吃"這個字啦!']
+const blahI = randomPick(blah.length)
+
+
 bot.on('message', function (event) { // event.message.text是使用者傳給bot的訊息
   // write code here
   Diner.find()
@@ -40,15 +44,15 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
     .exec((err, diners) => {
       if (err) return console.error(err)
       let userSay = event.message.text
-      console.log(event.message.text)
-      let reply = '什麼?! 你梭什麼我聽不懂啦~'
+      let reply = blah[randomPick(blah.length)]
       if (userSay == undefined) {
-        reply = '不要再說了，我肚子好餓！'
+        reply = blah[randomPick(blah.length)]
       } else if (userSay.includes('吃')) {
         const index = randomPick(diners.length)
-        reply = `名字: ${diners[index].name}, 類別: ${diners[index].category}, 電話: ${diners[index].phone}, Rating: ${diners[index].rating}, 描述: ${diners[index].description}`
+        reply = `${diners[index].name} >> ${diners[index].category} 類，${diners[index].rating}分，簡介: ${diners[index].description}。電話: ${diners[index].phone}`
+      } else if (userSay == 'hello' || 'Hello') {
+        reply = 'Hello~ 是在哈囉什麼...'
       }
-
       event.reply(reply).then(function (data) {
         // success
       }).catch(function (error) {
@@ -69,7 +73,8 @@ app.get('/diners/line', (req, res) => {
       if (err) return console.error(err)
       const index = randomPick(diners.length)
       let reply = diners[index]
-      return res.render('line', { diner: reply })
+      let trashtalk = blah[randomPick(blah.length)]
+      return res.render('line', { diner: reply, trashtalk })
     })
 
 })
