@@ -50,7 +50,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
       } else if (userSay.includes('吃')) {
         const index = randomPick(diners.length)
         reply = `${diners[index].name} >> ${diners[index].category} 類，${diners[index].rating}分，簡介: ${diners[index].description}。電話: ${diners[index].phone}`
-      } else if (userSay.lowerCase().includes('hello')) {
+      } else if (userSay.toLowerCase().includes('hello')) {
         reply = 'Hello~ 是在哈囉什麼...'
       }
       event.reply(reply).then(function (data) {
