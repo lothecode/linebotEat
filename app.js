@@ -49,7 +49,7 @@ bot.on('message', function (event) { // event.message.text是使用者傳給bot�
         reply = blah[randomPick(blah.length)]
       } else if (userSay.includes('吃')) {
         const index = randomPick(diners.length)
-        reply = `${diners[index].name} >> ${diners[index].category} 類，${diners[index].rating}分，簡介: ${diners[index].description}。電話: ${diners[index].phone}`
+        reply = `${diners[index].name} >> ${diners[index].category}類，${diners[index].description}。地址: ${diners[index].address}電話: ${diners[index].phone}`
       } else if (userSay.toLowerCase().includes('hello')) {
         reply = 'Hello~ 是在哈囉什麼...'
       }

@@ -12,8 +12,8 @@ const todoSchema = new Schema({
   phone: {
     type: String,
   },
-  rating: {
-    type: Number
+  address: {
+    type: String
   },
   description: {
     type: String
